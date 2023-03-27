@@ -15,47 +15,42 @@ using System.Text;
 
 namespace HackerRankProject
 {
+    //
 
     class Program
     {
-        public static List<int> gradingStudents(List<int> grades)
+        // Function takes a list of integers and looks for subarr that contains only numbers that the absolute 
+        //difference beteen each of the nuber is less or equal 1 
+        public static int pickingNumbers(List<int> a)
         {
-          
-            List<int> studentsGrades = new List<int>();
-            int moduloGrade;
-            int nextMultiply; 
+            int tempVal;
+            int tempDiff;
 
-            foreach(int g in grades)
+            var tempList = new List<int>();
+
+            for(int i=0; i < a.Count; i++)
             {
-                if(g < 40)
+                //Always new temp val from list
+                tempVal = a[i];
+                
+                // iterating on each element of the list
+                for (int j = 0; j < a.Count; j++)
                 {
-                    studentsGrades.Add(g);
-                }
+                    tempDiff = Math.Abs(tempVal - a[j]);
 
-
-                moduloGrade = g % 5;
-
-                if(moduloGrade !=0)
-                {
-                    nextMultiply = g + (5 - (moduloGrade)); 
-                    if(nextMultiply - g < 3)
+                    if(tempDiff < 1)
                     {
-                        studentsGrades.Add(5 * (int)Math.Round(g / 5.0));
-                    }
-                    else
-                    {
-                        studentsGrades.Add(g);
+                        tempList.Add(a[j]);       
                     }
                 }
-                else 
-                {
-                    studentsGrades.Add(g); 
-                }
-
-
+                
             }
 
-            return studentsGrades;
+            foreach (var e in tempList)
+            {
+                Console.WriteLine(e);
+            }
+            return tempList.Count;
 
         }
 
@@ -63,26 +58,14 @@ namespace HackerRankProject
         {
             //TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-            int gradesCount = Convert.ToInt32(Console.ReadLine().Trim());
+            int n = Convert.ToInt32(Console.ReadLine().Trim());
 
-            List<int> grades = new List<int>();
+            List<int> a = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(aTemp => Convert.ToInt32(aTemp)).ToList();
 
-            for (int i = 0; i < gradesCount; i++)
-            {
-                int gradesItem = Convert.ToInt32(Console.ReadLine().Trim());
-                grades.Add(gradesItem);
-            }
+            int result = pickingNumbers(a);
 
-            List<int> result = gradingStudents(grades);
-
-            foreach(int num in result)
-            {
-                Console.WriteLine($"{num}, ");
-            }
+            Console.WriteLine(result);
             
-
-               
-          
 
 
             //Console.WriteLine(String.Join("\n", result));
