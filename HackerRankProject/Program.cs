@@ -19,56 +19,66 @@ namespace HackerRankProject
 
     class Program
     {
-        // Function takes a list of integers and looks for subarr that contains only numbers that the absolute 
-        //difference beteen each of the nuber is less or equal 1 
-        public static int pickingNumbers(List<int> a)
+        //Function gets two lists of prices and overall budget and compers the values
+        //Returns either max value or if the value exceeds the available budget - it returns -1 
+        static int getMoneySpent(int[] keyboards, int[] drives, int b)
         {
-            int tempVal;
-            int tempDiff;
+            int maxValue = 0;
+            int curVal;
+            int tempVal; 
 
-            var tempList = new List<int>();
-
-            for(int i=0; i < a.Count; i++)
+            for(int i=0; i < keyboards.Length; i++)
             {
-                //Always new temp val from list
-                tempVal = a[i];
-                
-                // iterating on each element of the list
-                for (int j = 0; j < a.Count; j++)
+                curVal = keyboards[i];
+
+               
+
+                for(int j=0; j < drives.Length; j++)
                 {
-                    tempDiff = Math.Abs(tempVal - a[j]);
+                    tempVal = curVal + drives[j];
 
-                    if(tempDiff < 1)
+                    
+
+                    if (tempVal > maxValue && tempVal < b)
                     {
-                        tempList.Add(a[j]);       
+                        maxValue = tempVal;
+                        
                     }
+
                 }
-                
             }
 
-            foreach (var e in tempList)
+            if(maxValue != 0)
             {
-                Console.WriteLine(e);
+                return maxValue;
             }
-            return tempList.Count;
+            
+            return -1; 
 
+
+            
         }
 
         static void Main(string[] args)
         {
             //TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-            int n = Convert.ToInt32(Console.ReadLine().Trim());
+            string[] bnm = Console.ReadLine().Split(' ');
 
-            List<int> a = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(aTemp => Convert.ToInt32(aTemp)).ToList();
+            int b = Convert.ToInt32(bnm[0]);
 
-            int result = pickingNumbers(a);
+            int n = Convert.ToInt32(bnm[1]);
 
-            Console.WriteLine(result);
-            
+            int m = Convert.ToInt32(bnm[2]);
 
+            int[] keyboards = Array.ConvertAll(Console.ReadLine().Split(' '), keyboardsTemp => Convert.ToInt32(keyboardsTemp))
+       ;
 
-            //Console.WriteLine(String.Join("\n", result));
+            int[] drives = Array.ConvertAll(Console.ReadLine().Split(' '), drivesTemp => Convert.ToInt32(drivesTemp));
+
+            int moneySpent = getMoneySpent(keyboards, drives, b);
+
+            Console.WriteLine(String.Join("\n", moneySpent));
 
             //textWriter.Flush();
             //textWriter.Close();
