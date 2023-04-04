@@ -15,7 +15,7 @@ using System.Text;
 
 namespace HackerRankProject
 {
-    //
+    
 
     class Program
     {
@@ -63,22 +63,18 @@ namespace HackerRankProject
         {
             //TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
 
-            string[] bnm = Console.ReadLine().Split(' ');
+            int rankedCount = Convert.ToInt32(Console.ReadLine().Trim());
 
-            int b = Convert.ToInt32(bnm[0]);
+            List<int> ranked = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(rankedTemp => Convert.ToInt32(rankedTemp)).ToList();
 
-            int n = Convert.ToInt32(bnm[1]);
+            int playerCount = Convert.ToInt32(Console.ReadLine().Trim());
 
-            int m = Convert.ToInt32(bnm[2]);
+            List<int> player = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(playerTemp => Convert.ToInt32(playerTemp)).ToList();
 
-            int[] keyboards = Array.ConvertAll(Console.ReadLine().Split(' '), keyboardsTemp => Convert.ToInt32(keyboardsTemp))
-       ;
+            List<int> result = climbingLeaderboard(ranked, player);
 
-            int[] drives = Array.ConvertAll(Console.ReadLine().Split(' '), drivesTemp => Convert.ToInt32(drivesTemp));
+            Console.WriteLine(String.Join("\n", result));
 
-            int moneySpent = getMoneySpent(keyboards, drives, b);
-
-            Console.WriteLine(String.Join("\n", moneySpent));
 
             //textWriter.Flush();
             //textWriter.Close();
